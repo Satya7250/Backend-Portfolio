@@ -26,4 +26,26 @@ const handleDeleteUser = async (req, res) => {
   }
 };
 
-module.exports = { renderAdminPanel, handleDeleteUser };
+// Reset visit count
+const handleResetVisitCount = async (req, res) => {
+  try {
+    console.log('Reset visit count called');
+    let viewRecord = await View.findOne();
+
+    if (viewRecord) {
+      viewRecord.totalViews = 0;
+      await viewRecord.save();
+      console.log('Visit count reset to 0');
+    } else {
+      await View.create({ totalViews: 0 });
+      console.log('New view record created with 0 visits');
+    }
+
+    res.redirect("/admin");
+  } catch (error) {
+    console.error('Error resetting visit count:', error);
+    res.status(500).send("Failed to reset visit count");
+  }
+};
+
+module.exports = { renderAdminPanel, handleDeleteUser, handleResetVisitCount };

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { renderAdminPanel, handleDeleteUser } = require("../controllers/adminController");
+const { renderAdminPanel, handleDeleteUser, handleResetVisitCount } = require("../controllers/adminController");
 
 // Basic Authentication Middleware
 const authMiddleware = (req, res, next) => {
@@ -24,5 +24,9 @@ router.use(authMiddleware);
 
 router.get("/", renderAdminPanel);
 router.post("/delete/:id", handleDeleteUser);
+router.post("/reset-visits", (req, res, next) => {
+  console.log('Reset visits route called');
+  handleResetVisitCount(req, res, next);
+});
 
 module.exports = router;
