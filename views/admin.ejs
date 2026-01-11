@@ -17,6 +17,11 @@
 <body>
     <h1>Admin Panel - User Messages</h1>
     
+    <div style="background-color: #f0f8ff; padding: 15px; border-radius: 5px; margin-bottom: 20px; border-left: 4px solid #007bff;">
+        <h3 style="margin: 0; color: #007bff;">📊 Website Statistics</h3>
+        <p style="margin: 5px 0 0 0; font-size: 18px; font-weight: bold;">Total Visits: <%= totalViews %></p>
+    </div>
+    
     <% if (users && users.length > 0) { %>
         <table>
             <thead>
