@@ -12,7 +12,16 @@ const PORT = process.env.PORT || 5000;
 
 // Set views path using absolute path (required for Vercel serverless)
 app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
+// Resolve views path - works in both local and Vercel serverless
+// When api/index.js requires ../index.js, __dirname in index.js is the Backend-Portfolio root
+const viewsPath = path.join(__dirname, "views");
+app.set("views", viewsPath);
+
+// Debug logging (only in development)
+if (process.env.NODE_ENV !== "production") {
+  console.log("Views path set to:", viewsPath);
+  console.log("__dirname:", __dirname);
+}
 
 /* ------------------ MIDDLEWARE ------------------ */
 app.use(cors());
