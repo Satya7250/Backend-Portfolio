@@ -28,6 +28,12 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Request logging middleware (for debugging)
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.path}`, req.body);
+  next();
+});
+
 /* ------------------ DB CONNECTION MIDDLEWARE ------------------ */
 // Ensure MongoDB connection on every request (critical for serverless)
 app.use(async (req, res, next) => {
@@ -36,7 +42,10 @@ app.use(async (req, res, next) => {
     next();
   } catch (error) {
     console.error("MongoDB connection error:", error);
-    res.status(500).json({ error: "Database connection failed" });
+    res.status(500).json({ 
+      error: "Database connection failed",
+      message: error.message || "Unable to connect to database"
+    });
   }
 });
 
@@ -54,10 +63,15 @@ app.get("/", (req, res) => {
   });
 });
 
-// API routes
+// API routes - order matters! More specific routes first
 app.use("/api/users", userRouter);
 app.use("/api", viewRouter);
 app.use("/admin", adminRouter);
+
+// Debug route to test if routing is working
+app.get("/api/test", (req, res) => {
+  res.json({ message: "API routing is working!" });
+});
 
 /* ------------------ SERVER ------------------ */
 if (require.main === module) {
