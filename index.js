@@ -64,14 +64,15 @@ app.get("/", (req, res) => {
 });
 
 // API routes - order matters! More specific routes first
-app.use("/api/users", userRouter);
-app.use("/api", viewRouter);
-app.use("/admin", adminRouter);
-
-// Debug route to test if routing is working
+// Debug route must come before other /api routes
 app.get("/api/test", (req, res) => {
   res.json({ message: "API routing is working!" });
 });
+
+// Specific API routes
+app.use("/api/users", userRouter);
+app.use("/api", viewRouter);
+app.use("/admin", adminRouter);
 
 /* ------------------ SERVER ------------------ */
 if (require.main === module) {
