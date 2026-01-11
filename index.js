@@ -21,6 +21,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 /* ------------------ ROUTES ------------------ */
+app.get("/", (req, res) => {
+  res.render("index");
+});
 app.use("/api/users", userRouter);
 app.use("/api", viewRouter);
 app.use("/admin", adminRouter);

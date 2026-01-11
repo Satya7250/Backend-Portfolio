@@ -1,32 +1,82 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Admin Panel</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backend Portfolio API</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 90%;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            color: #666;
+        }
+        .status {
+            display: inline-block;
+            padding: 8px 15px;
+            border-radius: 20px;
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        .endpoints {
+            margin-top: 30px;
+            text-align: left;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .endpoints h3 {
+            margin-top: 0;
+            font-size: 1em;
+            color: #555;
+        }
+        code {
+            display: block;
+            background: #e9ecef;
+            padding: 5px;
+            margin: 5px 0;
+            border-radius: 3px;
+            font-family: monospace;
+            color: #d63384;
+        }
+    </style>
 </head>
 <body>
-  <h2>User Messages</h2>
-
-  <table border="1" cellpadding="10">
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Message</th>
-      <th>Action</th>
-    </tr>
-
-    <% users.forEach(user => { %>
-      <tr>
-        <td><%= user.name %></td>
-        <td><%= user.email %></td>
-        <td><%= user.message %></td>
-        <td>
-          <form action="/admin/delete/<%= user._id %>" method="POST">
-            <button type="submit">Delete</button>
-          </form>
-        </td>
-      </tr>
-    <% }) %>
-  </table>
-
+    <div class="container">
+        <h1>Backend Portfolio</h1>
+        <p>API Service is up and running.</p>
+        <div class="status">● System Operational</div>
+        
+        <div class="endpoints">
+            <h3>Available Endpoints:</h3>
+            <code>POST /api/users</code>
+            <code>POST /api/view</code>
+            <code>GET /admin</code>
+        </div>
+    </div>
 </body>
 </html>
