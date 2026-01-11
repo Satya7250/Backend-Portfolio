@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 const { connectToMongoDb } = require("./connect");
 const userRouter = require("./routes/user");
 const viewRouter = require("./routes/view");
@@ -9,8 +10,9 @@ const adminRouter = require("./routes/admin");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Set views path using absolute path (required for Vercel serverless)
 app.set("view engine", "ejs");
-app.set("views", "./views");
+app.set("views", path.join(__dirname, "views"));
 
 /* ------------------ MIDDLEWARE ------------------ */
 app.use(cors());
@@ -30,9 +32,20 @@ app.use(async (req, res, next) => {
 });
 
 /* ------------------ ROUTES ------------------ */
+// Root route - return API status (better for serverless/API-only backend)
 app.get("/", (req, res) => {
-  res.render("index");
+  res.json({
+    message: "Backend Portfolio API",
+    status: "operational",
+    endpoints: {
+      users: "POST /api/users",
+      views: "POST /api/view",
+      admin: "GET /admin"
+    }
+  });
 });
+
+// API routes
 app.use("/api/users", userRouter);
 app.use("/api", viewRouter);
 app.use("/admin", adminRouter);
